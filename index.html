@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#6d28d9" />
+  <title>Contexto & Objetivo | Herramienta de Marketing</title>
+  <meta name="description" content="Actividad interactiva para analizar el contexto y definir objetivos de marketing antes de proponer soluciones." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">M</span>
+      <div>
+        <strong>Marketing Lab</strong>
+        <small>Contexto antes que solución</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="exampleBtn" class="btn btn-ghost" type="button">Cargar ejemplo</button>
+      <button id="resetBtn" class="btn btn-ghost danger" type="button">Limpiar</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">ACTIVIDAD · CONTEXTO Y OBJETIVO</div>
+      <h1>Entiende el terreno <span>antes de diseñar la solución.</span></h1>
+      <p>Analiza una situación, separa hechos de suposiciones, identifica preguntas clave y define qué quieres lograr.</p>
+      <div class="rule"><strong>Regla:</strong> todavía no propongas soluciones.</div>
+    </section>
+
+    <section class="progress-card" aria-label="Progreso">
+      <div class="progress-head">
+        <span id="stepLabel">Paso 1 de 6</span>
+        <strong id="progressPct">17%</strong>
+      </div>
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div class="step-dots" id="stepDots"></div>
+    </section>
+
+    <form id="activityForm" novalidate>
+      <!-- Paso 1 -->
+      <section class="step active" data-step="1">
+        <div class="section-head">
+          <span class="step-number">01</span>
+          <div>
+            <h2>Define la situación</h2>
+            <p>Describe el caso sin intentar resolverlo.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <label class="field">
+            <span>Nombre del caso / proyecto</span>
+            <input id="projectName" maxlength="80" placeholder="Ej. Reset Night" />
+          </label>
+          <label class="field">
+            <span>Tipo de situación</span>
+            <select id="projectType">
+              <option value="">Selecciona una opción</option>
+              <option>Evento</option>
+              <option>Producto</option>
+              <option>Servicio</option>
+              <option>Restaurante</option>
+              <option>Marca</option>
+              <option>Promoción</option>
+              <option>Otro</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field">
+          <span>¿Qué está ocurriendo?</span>
+          <textarea id="situation" rows="4" maxlength="420" placeholder="Describe la situación en máximo 3–4 líneas."></textarea>
+          <small><span id="situationCount">0</span>/420</small>
+        </label>
+
+        <label class="field">
+          <span>¿Cuál es el reto inicial?</span>
+          <textarea id="initialChallenge" rows="3" maxlength="260" placeholder="¿Qué necesita cambiar, mejorar, venderse, comunicarse o comprenderse?"></textarea>
+        </label>
+      </section>
+
+      <!-- Paso 2 -->
+      <section class="step" data-step="2">
+        <div class="section-head">
+          <span class="step-number">02</span>
+          <div>
+            <h2>Analiza el contexto</h2>
+            <p>Elige al menos 5 dimensiones que realmente puedan influir.</p>
+          </div>
+        </div>
+
+        <div id="dimensionPicker" class="chips"></div>
+        <p class="helper"><span id="dimensionCount">0</span> dimensiones seleccionadas · mínimo 5.</p>
+        <div id="dimensionFields" class="dimension-fields"></div>
+      </section>
+
+      <!-- Paso 3 -->
+      <section class="step" data-step="3">
+        <div class="section-head">
+          <span class="step-number">03</span>
+          <div>
+            <h2>Hechos vs. suposiciones</h2>
+            <p>Separa lo que sabes de lo que todavía estás interpretando.</p>
+          </div>
+        </div>
+
+        <div class="grid two align-start">
+          <div class="panel">
+            <div class="panel-title success-dot">Lo que sabemos</div>
+            <p class="muted">Datos, condiciones o información disponible.</p>
+            <div id="factsList" class="repeat-list"></div>
+            <button class="btn btn-small add-row" data-target="factsList" data-kind="fact" type="button">+ Agregar hecho</button>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title question-dot">Lo que creemos</div>
+            <p class="muted">Suposiciones o hipótesis que todavía no están comprobadas.</p>
+            <div id="assumptionsList" class="repeat-list"></div>
+            <button class="btn btn-small add-row" data-target="assumptionsList" data-kind="assumption" type="button">+ Agregar suposición</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Paso 4 -->
+      <section class="step" data-step="4">
+        <div class="section-head">
+          <span class="step-number">04</span>
+          <div>
+            <h2>Plantea preguntas clave</h2>
+            <p>Escribe lo que todavía necesitas comprender antes de tomar decisiones.</p>
+          </div>
+        </div>
+
+        <div id="questionsList" class="numbered-questions"></div>
+        <button id="addQuestionBtn" class="btn btn-small" type="button">+ Agregar pregunta</button>
+
+        <div class="tip">
+          <strong>Evita responderlas todavía.</strong>
+          <span>Buenas preguntas abren investigación: ¿por qué?, ¿qué podría detenerlo?, ¿contra qué compite?, ¿qué tendría que percibir?</span>
+        </div>
+      </section>
+
+      <!-- Paso 5 -->
+      <section class="step" data-step="5">
+        <div class="section-head">
+          <span class="step-number">05</span>
+          <div>
+            <h2>Define los objetivos</h2>
+            <p>Distingue el resultado del negocio del cambio que quieres provocar en el público.</p>
+          </div>
+        </div>
+
+        <div class="grid two align-start">
+          <label class="field objective business">
+            <span>Objetivo del negocio</span>
+            <small>¿Qué resultado concreto queremos conseguir?</small>
+            <textarea id="businessObjective" rows="5" maxlength="320" placeholder="Ej. Vender 280 accesos antes del evento."></textarea>
+          </label>
+
+          <label class="field objective marketing">
+            <span>Objetivo de marketing / comunicación</span>
+            <small>¿Qué queremos que cambie en percepción, interés o comportamiento?</small>
+            <textarea id="marketingObjective" rows="5" maxlength="360" placeholder="Ej. Lograr que el evento sea percibido como una recompensa relevante para cerrar el semestre."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <!-- Paso 6 -->
+      <section class="step" data-step="6">
+        <div class="section-head">
+          <span class="step-number">06</span>
+          <div>
+            <h2>Cierra el análisis</h2>
+            <p>Sintetiza lo que entendiste sin saltar todavía a la solución.</p>
+          </div>
+        </div>
+
+        <div class="closure-grid">
+          <label class="field">
+            <span>El contexto nos muestra que…</span>
+            <textarea id="closureContext" rows="3" maxlength="300"></textarea>
+          </label>
+          <label class="field">
+            <span>Nuestro reto principal parece ser…</span>
+            <textarea id="closureChallenge" rows="3" maxlength="300"></textarea>
+          </label>
+          <label class="field">
+            <span>Nuestro objetivo será…</span>
+            <textarea id="closureObjective" rows="3" maxlength="300"></textarea>
+          </label>
+          <label class="field">
+            <span>Antes de crear una solución necesitamos entender mejor…</span>
+            <textarea id="closureNeed" rows="3" maxlength="300"></textarea>
+          </label>
+        </div>
+
+        <div class="preview-card">
+          <div>
+            <span class="eyebrow">RESULTADO</span>
+            <h3>Tu análisis está listo para documentarse.</h3>
+            <p>Descarga un PDF con la información que construiste durante la actividad.</p>
+          </div>
+          <button id="downloadPdfBtn" class="btn btn-primary btn-large" type="button">Descargar PDF</button>
+        </div>
+        <p id="pdfStatus" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <div class="form-nav">
+        <button id="prevBtn" class="btn btn-ghost" type="button" disabled>← Anterior</button>
+        <span id="saveStatus">Guardado automático</span>
+        <button id="nextBtn" class="btn btn-primary" type="button">Siguiente →</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>Herramienta educativa · Marketing Lab · Los datos se guardan únicamente en este navegador.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
